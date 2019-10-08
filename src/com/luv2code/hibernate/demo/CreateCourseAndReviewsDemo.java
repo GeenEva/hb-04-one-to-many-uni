@@ -9,7 +9,7 @@ import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Review;
 
-public class CreateCoursesDemo {
+public class CreateCourseAndReviewsDemo {
 
 	public static void main(String[] args) {
 		
@@ -27,15 +27,19 @@ public class CreateCoursesDemo {
 			
 			session.beginTransaction();
 			
-		//	Instructor tempInstructor = session.get(Instructor.class, 3);
+		//	Course course = new Course("Aint no cors like dis cors");
+		
+			Course course = session.get(Course.class, 12);
+//			course.addReview(new Review("Incredible! I thought that it was amasing! When is your next corse?!"));
+//			course.addReview(new Review("Just... No words for this... So... here are my no words: ..."));
+//			course.addReview(new Review("Ai ai aiiii"));
 			
-			Course course = new Course("Flapperpappen");
-			Course course2 = new Course("Alibaba en veertig poffertjes");
-
-			session.save(course);
-			session.save(course2);
+			Instructor instructor = session.get(Instructor.class, 2);
 			
+			course.setInstructor(instructor);
+			session.save(course);  				//when cascade.ALL when saving course, the associated objects (i.e. reviews) are also saved
 			session.getTransaction().commit();
+			
 			
 
 		} catch (Exception e) {
